@@ -18,10 +18,18 @@ export default class SignUp extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this
-      .signIn({
-        username: this.state.username,
-        password: this.state.password
+    console.log("username", this.state.username);
+    fetch('/users/register', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username:  this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+        })
       })
       .then(res =>
         this.setState({
@@ -84,7 +92,7 @@ export default class SignUp extends Component {
         <div className="mb-3">
           <label>Password</label>
           <input
-            id="username"
+            id="password"
             type="password"
             className="form-control"
             placeholder="Enter password"

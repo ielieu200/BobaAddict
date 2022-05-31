@@ -91,6 +91,9 @@ class Register(Resource):
 
         req_data = request.get_json()
 
+        print(req_data)
+
+
         _username = req_data.get("username")
         _email = req_data.get("email")
         _password = req_data.get("password")
@@ -104,8 +107,11 @@ class Register(Resource):
 
         new_user_id = new_user.create_new_user()
 
+
+
         return {"success": True,
                 "userID": new_user_id,
+                "sessionToken": 1000,
                 "msg": "The user was successfully registered"}, 200
 
 

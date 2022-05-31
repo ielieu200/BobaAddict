@@ -1,5 +1,51 @@
 import React, { Component } from 'react'
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sessionToken: null,
+      error: null,
+      email: '',
+      password: ''
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    fetch('/users/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username:  this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+        })
+      })
+      .then(res =>
+        this.setState({
+          sessionToken: res.sessionToken
+        })
+      )
+      .catch(err => {
+        this.setState({ error: err.message });
+        console.log(err.statusCode + ' error', err);
+      });
+  }
+
+  handlePasswordChange(e) {
+    this.setState({ password: e.target.value });
+  }
+
+  handleEmailChange(e) {
+    this.setState({ email: e.target.value });
+  }
   render() {
     return (
       <form>
