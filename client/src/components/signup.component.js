@@ -31,14 +31,17 @@ export default class SignUp extends Component {
         password: this.state.password,
         })
       })
-      .then(res =>
+      .then(res => {
         this.setState({
           sessionToken: res.sessionToken
-        })
+        });
+        navigate('/home')
+      }
       )
       .catch(err => {
         this.setState({ error: err.message });
         console.log(err.statusCode + ' error', err);
+
       });
   }
 

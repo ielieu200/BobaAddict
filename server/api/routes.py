@@ -80,7 +80,7 @@ login_model = rest_api.model('LoginModel', {"email": fields.String(required=True
 """
 
 
-@rest_api.route('/api/users/register')
+@rest_api.route('/users/register')
 class Register(Resource):
     """
        Creates a new user by taking 'signup_model' input
@@ -89,9 +89,8 @@ class Register(Resource):
     @rest_api.expect(signup_model, validate=True)
     def post(self):
 
+        print("hi")
         req_data = request.get_json()
-
-        print(req_data)
 
 
         _username = req_data.get("username")
@@ -115,7 +114,7 @@ class Register(Resource):
                 "msg": "The user was successfully registered"}, 200
 
 
-@rest_api.route('/api/users/login')
+@rest_api.route('/users/login')
 class Login(Resource):
     """
        Login user by taking 'login_model' input and return JWT token
